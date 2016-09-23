@@ -1,0 +1,64 @@
+<!--
+    SRL Query template:
+-->
+
+<script type="text/x-red" data-template-name="SRL-Query">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-field"><i class="fa fa-keyboard-o"></i> Input field</label>
+        <input type="text" id="node-input-field" placeholder="Input field" />
+        <input type="hidden" id="node-input-fieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query"><i class="fa fa-edit"></i> Query</label>
+        <input type="text" id="node-input-query" />
+    </div>
+</script>
+
+<!--
+    SRL Help template:
+-->
+<script type="text/x-red" data-help-name="SRL-Query">
+    <p>SRL-JavaScript implementation for node-red</p>
+    <h4><i>Input</i></h4>
+    <p>Node-red property field name, where text what need to parse by SRL.</p>
+    <h4><i>Output 1</i></h4>
+    <p>The result after regex object is placed in the <b>msg.payload</b></p>
+    <h4><i>Output 2</i></h4>
+    <p>Return all object, that was passed to input of node</p>
+</script>
+
+<!--
+    SRL Register:
+-->
+<script type="text/javascript">
+    RED.nodes.registerType('SRL-Query', {
+        category: 'function',
+        color: '#0099ff',
+        defaults: {
+            name: {value: ""},
+            field: {value: "payload", required: true},
+            fieldType: {value: "msg"},
+            query: {value: "", required: true}
+        },
+        inputs: 1,
+        outputs: 2,
+        icon: "inject.png",
+        label: function() {
+            return this.name || "SRL-Query";
+        },
+        oneditprepare: function() {
+            $("#node-input-field").typedInput({
+                default: 'msg',
+                types: ['str','msg','flow','global'],
+                typeField: $("#node-input-fieldType")
+            });
+            if (!this.fieldType) {
+                this.fieldType = 'msg';
+            }
+        }
+    });
+</script>
