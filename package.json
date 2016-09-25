@@ -1,15 +1,14 @@
 {
   "name": "node-red-contrib-srl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node-Red implementation of SRL",
-  "main": "srl.js",
   "author": {
     "name" : "Yuriy Chihray"
 ,   "email" : "y.chihray@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
-    "srl": "^0.1.0"
+    "srl": "^0.2.0"
   },
   "keywords": [ 
     "node-red",

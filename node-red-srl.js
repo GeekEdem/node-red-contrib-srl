@@ -1,4 +1,5 @@
 'use strict';
+
 const SRL = require('srl');
 
 module.exports = function(RED) {
@@ -16,16 +17,11 @@ module.exports = function(RED) {
                 result.payload = [];
                 try {
                     const query = new SRL(config.query);
-                    if (query.test(text)) {
-                        var res = query.exec(text);
-                        // I think, in future .exec() will return array, but now - object
-                        if(typeof(res) === 'object') {
-                            result.payload.push({'value': res[0], startIndex: res.index});
-                        } else {
-                            res.forEach(function(entrance) {
-                                result.payload.push({'value': entrance[0], startIndex: entrance.index});
-                            });
-                        }
+                    if (query.isMatching(text)) {
+                        var res = query.getMatches(text);
+                        res.forEach(function(entrance) {
+                            result.payload.push({'value': entrance[0], startIndex: entrance.index});
+                        });
                     }
                     node.send([result, msg]);
                 } catch (e) {
